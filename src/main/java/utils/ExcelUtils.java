@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -19,7 +17,7 @@ import com.ibm.icu.math.BigDecimal;
 
 
 public class ExcelUtils {
-	public static Map<String, String> getMapTestData(String filePath, String fileName, String sheetName, int testCaseRowNumber) throws FileNotFoundException, IOException{
+	public Map<String, String> getMapTestData(String filePath, String fileName, String sheetName, int testCaseRowNumber) throws FileNotFoundException, IOException{
 		Workbook workbook = getWorkbook(filePath, fileName);
 			Sheet sheet = workbook.getSheet(sheetName);
 			int columnCount = sheet.getRow(0).getLastCellNum() - 1;
@@ -44,7 +42,7 @@ public class ExcelUtils {
 			return testcaseData;
 	}
 	
-	private static Workbook getWorkbook(String filePath, String fileName) throws FileNotFoundException, IOException {
+	private Workbook getWorkbook(String filePath, String fileName) throws FileNotFoundException, IOException {
 		File file =    new File(filePath + "\\" + fileName);
 		FileInputStream inputStream;
 			inputStream = new FileInputStream(file);
@@ -57,8 +55,4 @@ public class ExcelUtils {
 				workbook = new HSSFWorkbook(inputStream);
 		return workbook;
 	}  
-
-	public static void main(String args[]) throws IOException {
-		System.out.println("*********" + getMapTestData(System.getProperty("user.dir") + "//src//test//resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2));
-	}
 }
