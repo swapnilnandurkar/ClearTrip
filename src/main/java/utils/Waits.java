@@ -18,8 +18,8 @@ public class Waits {
 		this.driver = driver;
 	}
 	
-	public boolean applyExplicitWait(int timeOutInSeconds, ExpectedCondition<Boolean> condition) {
-		return new WebDriverWait(driver, timeOutInSeconds).until(condition);
+	public WebElement applyExplicitWait(int timeOutInSeconds, ExpectedCondition<WebElement> expectedCondition) {
+		return new WebDriverWait(driver, timeOutInSeconds).until(expectedCondition);
 	}
 	
 	public void applyFluentWait(final WebElement element) {

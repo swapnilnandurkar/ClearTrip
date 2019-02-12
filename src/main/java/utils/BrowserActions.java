@@ -40,4 +40,12 @@ public class BrowserActions {
 	public void deSelectAll(WebElement element) {
 		new Select(element).deselectAll();
 	}
+	
+	public void clickOnWebElement(WebElement element) {
+		element.click();
+	}
+
+	public void selectDate(String date) {
+		
+	}
 }

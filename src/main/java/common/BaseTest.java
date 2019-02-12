@@ -13,7 +13,7 @@ import cucumber.api.java.Before;
 import utils.ExcelUtils;
 
 public class BaseTest {
-	WebDriver driver;
+	protected WebDriver driver;
 	ExcelUtils excelUtils;
 	Map<String, String> testCaseData;
 	
