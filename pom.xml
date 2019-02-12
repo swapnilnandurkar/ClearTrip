@@ -27,93 +27,58 @@
 			<version>5.1.4.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>3.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>net.serenity-bdd</groupId>
-			<artifactId>serenity-cucumber</artifactId>
-			<version>1.9.23</version>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>3.141.59</version>
-		</dependency>
-		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-java</artifactId>
 			<version>1.2.5</version>
-		</dependency>
-		<!-- <dependency> <groupId>info.cukes</groupId> <artifactId>cucumber-junit</artifactId> 
-			<version>1.2.5</version> </dependency> -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.14.3</version>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-jvm-deps</artifactId>
+			<version>1.0.5</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-testng</artifactId>
 			<version>1.2.5</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-jvm</artifactId>
-			<version>1.2.5</version>
-			<type>pom</type>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.9.8</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>3.141.59</version>
 		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19</version>
-				<configuration>
-					<includes>
-						<include>**/*Runner.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
-				<configuration>
-					<fork>true</fork>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
 			</plugin>
-			 <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M3</version>
-				<!--<configuration>
+				<configuration>
 					<suiteXmlFiles>
 						<suiteXmlFile>Regression.xml</suiteXmlFile>
 					</suiteXmlFiles>
-				</configuration> -->
+				</configuration>
 			</plugin>
-			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
 		</plugins>
 	</build>
 </project>

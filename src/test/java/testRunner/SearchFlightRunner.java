@@ -1,13 +1,14 @@
 package testRunner;
 
-import org.junit.runner.RunWith;
+import org.testng.annotations.Test;
 
 import cucumber.api.CucumberOptions;
-import net.serenitybdd.cucumber.CucumberWithSerenity;
+import cucumber.api.testng.AbstractTestNGCucumberTests;
 
-@RunWith(CucumberWithSerenity.class)
-@CucumberOptions(features = "src/test/resources/features/search/Search_flight.feature",
+//@RunWith(Cucumber.class)
+@CucumberOptions(features = "src/test/resources/features/search",
 	glue ="stepDefinition")
-public class SearchFlightRunner{
+@Test
+public class SearchFlightRunner extends AbstractTestNGCucumberTests{
 	
 }
