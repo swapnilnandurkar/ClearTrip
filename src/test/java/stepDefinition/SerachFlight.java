@@ -8,6 +8,8 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -24,14 +26,17 @@ public class SerachFlight{
 	ExcelUtils excelUtils;
 	Map<String, String> testCaseData;
 	HomePage homePage;
+	ApplicationContext context;
+	
 	
 	@Before
 	public void launchBrowser() throws FileNotFoundException, IOException {
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"//drivers//chromedriver.exe");
-		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--disable-notifications");
-		driver = new ChromeDriver(options);
-		excelUtils = new ExcelUtils();
+		context = new FileSystemXmlApplicationContext("Spring.xml"); 
+		ChromeOptions chromeOption = (ChromeOptions)context.getBean("chromeOption");
+		chromeOption.addArguments("--disable-notifications");
+		driver = (ChromeDriver)context.getBean("driver");
+		excelUtils = (ExcelUtils)context.getBean("excelUtils");
 		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test//resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
@@ -46,7 +51,7 @@ public class SerachFlight{
 	@Given("^User navigate to the home page$")
 	public void user_navigate_to_the_home_page() throws FileNotFoundException, IOException {
 		testCaseData = new ExcelUtils().getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 1);
-		homePage =  new HomePage(driver);;
+		homePage =  (HomePage)context.getBean("homePage");
 	    homePage.navigateHomePage("https://cleartrip.com");
 	    System.out.println("^User navigate to the home page$");
 	}

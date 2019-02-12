@@ -11,7 +11,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 		, glue ="stepDefinition"
 		, plugin = {"html:target/cucumber-html-report"}
 		, monochrome = true)
-@Test
+//@Test
 public class SearchFlightRunner extends AbstractTestNGCucumberTests{
 	
 }
