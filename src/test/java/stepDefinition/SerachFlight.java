@@ -2,6 +2,7 @@ package stepDefinition;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -19,6 +20,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.HomePage;
 import utils.ExcelUtils;
 
@@ -32,11 +34,14 @@ public class SerachFlight{
 
 	@Before
 	public void launchBrowser() throws FileNotFoundException, IOException {
-		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"//drivers//chromedriver.exe");
+		Map<String, Object> prefs = new HashMap<String, Object>();
+		prefs.put("profile.default_content_setting_values.notifications", 2);
 		context = new FileSystemXmlApplicationContext("Spring.xml"); 
-		ChromeOptions chromeOption = (ChromeOptions)context.getBean("chromeOption");
-		chromeOption.addArguments("disable-notifications");
-		driver = (ChromeDriver)context.getBean("driver");
+		ChromeOptions chromeOption = new ChromeOptions();
+		chromeOption.addArguments("disable-infobars");
+		chromeOption.setExperimentalOption("prefs", prefs);
+		WebDriverManager.chromedriver().setup();
+		driver = new ChromeDriver(chromeOption);
 		excelUtils = (ExcelUtils)context.getBean("excelUtils");
 		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test//resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
 		driver.manage().window().maximize();
@@ -52,7 +57,7 @@ public class SerachFlight{
 	@Given("^User navigate to the home page$")
 	public void user_navigate_to_the_home_page() throws FileNotFoundException, IOException {
 		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
-		homePage =  (HomePage)context.getBean("homePage");
+		homePage = new HomePage(driver);
 	    homePage.navigateHomePage("https://cleartrip.com");
 	    new Actions(driver).sendKeys(Keys.ESCAPE).build().perform();
 	    System.out.println("^User navigate to the home page$");

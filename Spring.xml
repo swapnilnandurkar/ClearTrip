@@ -9,11 +9,11 @@
 	<!-- Configuration Based Spring Implementation -->
 	<!-- <context:component-scan base-package="app"></context:component-scan> -->
 	<beans>
-		<bean id="chromeOption"
+<!-- 		<bean id="chromeOption"
 			class="org.openqa.selenium.chrome.ChromeOptions" />
 		<bean id="driver" class="org.openqa.selenium.chrome.ChromeDriver">
 			<constructor-arg ref="chromeOption"></constructor-arg>
-		</bean>
+		</bean> -->
 		<bean id="testCaseData" class="java.util.HashMap">
 			<constructor-arg>
 				<map key-type="java.lang.Integer" value-type="java.lang.String">
@@ -22,8 +22,8 @@
 		</bean>
 		<bean id="excelUtils" class="utils.ExcelUtils">
 		</bean>
-		<bean id="homePage" class="pages.HomePage">
+		<!-- <bean id="homePage" class="pages.HomePage">
 			<constructor-arg ref="driver" ></constructor-arg>
-		</bean>
+		</bean> -->
 	</beans>
 </beans>
