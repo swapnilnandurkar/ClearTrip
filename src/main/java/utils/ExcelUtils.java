@@ -16,8 +16,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelUtils{
 	
+	private Workbook workbook;
+	
 	public Map<String, String> getMapTestData(String filePath, String fileName, String sheetName, int testCaseRowNumber) throws FileNotFoundException, IOException{
-		Workbook workbook = getWorkbook(filePath, fileName);
+		workbook = getWorkbook(filePath, fileName);
 		Sheet sheet = workbook.getSheet(sheetName);
 		int columnCount = sheet.getRow(0).getLastCellNum() - 1;
 		Map<String, String> testcaseData = new HashMap<String, String>();
@@ -25,7 +27,6 @@ public class ExcelUtils{
 		String key;
 		String value;
 		for(int i = 1; i <= columnCount; i++) {
-
 			key = headerRow.getCell(i).getCellType().toString().equalsIgnoreCase("numeric")
 					? new BigDecimal(headerRow.getCell(i).getNumericCellValue()).toString()
 							: headerRow.getCell(i).getStringCellValue();
@@ -45,7 +46,6 @@ public class ExcelUtils{
 		
 		File file = new File(filePath + "\\" + fileName);
 		FileInputStream inputStream = new FileInputStream(file);
-		Workbook workbook = null;
 		String fileExtensionName = fileName.substring(fileName.indexOf("."));
 		if(fileExtensionName.equals(".xlsx"))
 			workbook = new XSSFWorkbook(inputStream);

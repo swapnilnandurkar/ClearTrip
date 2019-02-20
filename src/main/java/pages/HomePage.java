@@ -96,7 +96,7 @@ public class HomePage extends BasePage{
 		actions.clickOnWebElement(searchFlightButton);
 	}
 
-	public void navigateHomePage(String url) {
+	public void navigateToHomePage(String url) {
 		driver.get(url);
 	}
 }
