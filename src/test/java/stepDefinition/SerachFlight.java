@@ -22,13 +22,12 @@ import utils.ExcelUtils;
 
 public class SerachFlight{
 	
-	protected WebDriver driver;
-	ExcelUtils excelUtils;
-	Map<String, String> testCaseData;
-	HomePage homePage;
-	ApplicationContext context;
-	
-	
+	private WebDriver driver;
+	private ExcelUtils excelUtils;
+	private Map<String, String> testCaseData;
+	private HomePage homePage;
+	private ApplicationContext context;
+
 	@Before
 	public void launchBrowser() throws FileNotFoundException, IOException {
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"//drivers//chromedriver.exe");
@@ -50,7 +49,7 @@ public class SerachFlight{
     
 	@Given("^User navigate to the home page$")
 	public void user_navigate_to_the_home_page() throws FileNotFoundException, IOException {
-		testCaseData = new ExcelUtils().getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 1);
+		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 1);
 		homePage =  (HomePage)context.getBean("homePage");
 	    homePage.navigateHomePage("https://cleartrip.com");
 	    System.out.println("^User navigate to the home page$");
@@ -100,7 +99,7 @@ public class SerachFlight{
 
 	@Given("^user select a Round trip$")
 	public void user_select_a_Round_trip() throws InterruptedException, FileNotFoundException, IOException {
-		testCaseData = new ExcelUtils().getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
+		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
 	    homePage.selectRoundTrip();
 		System.out.println("^user select a Round trip$");
 		Thread.sleep(1000);
