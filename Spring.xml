@@ -1,33 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
-     <!-- Configuration Based Spring Implementation -->
-		<!-- <context:component-scan base-package="app"></context:component-scan> -->
-		<beans>
-			<bean id="chromeOption" class="org.openqa.selenium.chrome.ChromeOptions"/>
-			<bean id="driver" class="org.openqa.selenium.chrome.ChromeDriver">
-				<constructor-arg ref="chromeOption"></constructor-arg>
-			</bean>
-			<bean id="testCaseData" class="java.util.HashMap">
-				<constructor-arg>
-		        <map key-type="java.lang.Integer" value-type="java.lang.String">
-		        </map>
-		    </constructor-arg>
-			</bean>
-			<bean id="excelUtils" class="utils.ExcelUtils">
-			</bean>
-	 		<!-- <bean id="file" class="java.io.File">
-				<constructor-arg value="C:/Users/Swapnil_Nandurkar/git/ClearTripAutomationDI/testData/ClearTripTestData.xlsx" type="String"></constructor-arg>
-			</bean> -->
-			<!-- <bean id="inputStream" class="java.io.FileInputStream">
-				<constructor-arg ref="file"></constructor-arg>
-			</bean> -->
-			<bean id="homePage" class="pages.HomePage">
-				<constructor-arg ref="driver"></constructor-arg>
-			</bean>
-		</beans>
+	<!-- Configuration Based Spring Implementation -->
+	<!-- <context:component-scan base-package="app"></context:component-scan> -->
+	<beans>
+		<bean id="chromeOption"
+			class="org.openqa.selenium.chrome.ChromeOptions" />
+		<bean id="driver" class="org.openqa.selenium.chrome.ChromeDriver">
+			<constructor-arg ref="chromeOption"></constructor-arg>
+		</bean>
+		<bean id="testCaseData" class="java.util.HashMap">
+			<constructor-arg>
+				<map key-type="java.lang.Integer" value-type="java.lang.String">
+				</map>
+			</constructor-arg>
+		</bean>
+		<bean id="excelUtils" class="utils.ExcelUtils">
+		</bean>
+		<bean id="homePage" class="pages.HomePage">
+			<constructor-arg ref="driver" ></constructor-arg>
+		</bean>
+	</beans>
 </beans>

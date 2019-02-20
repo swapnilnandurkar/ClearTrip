@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -33,13 +35,13 @@ public class SerachFlight{
 		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"//drivers//chromedriver.exe");
 		context = new FileSystemXmlApplicationContext("Spring.xml"); 
 		ChromeOptions chromeOption = (ChromeOptions)context.getBean("chromeOption");
-		chromeOption.addArguments("--disable-notifications");
+		chromeOption.addArguments("disable-notifications");
 		driver = (ChromeDriver)context.getBean("driver");
 		excelUtils = (ExcelUtils)context.getBean("excelUtils");
 		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test//resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(3000, TimeUnit.SECONDS);
-		driver.manage().timeouts().pageLoadTimeout(3000, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(2000, TimeUnit.SECONDS);
+		driver.manage().timeouts().pageLoadTimeout(2000, TimeUnit.SECONDS);
 	}
 	
     @After
@@ -49,9 +51,10 @@ public class SerachFlight{
     
 	@Given("^User navigate to the home page$")
 	public void user_navigate_to_the_home_page() throws FileNotFoundException, IOException {
-		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 1);
+		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
 		homePage =  (HomePage)context.getBean("homePage");
 	    homePage.navigateHomePage("https://cleartrip.com");
+	    new Actions(driver).sendKeys(Keys.ESCAPE).build().perform();
 	    System.out.println("^User navigate to the home page$");
 	}
 
@@ -93,13 +96,15 @@ public class SerachFlight{
 	@Then("^user should able to see flights details along with fares$")
 	public void user_should_able_to_see_flights_details_along_with_fares() throws InterruptedException {
 	    // Write code here that turns the phrase above into concrete actions
+		
+		//Assert
 	    System.out.println("^user should able to see flights details along with fares$");
 	    Thread.sleep(1000);
 	}
 
 	@Given("^user select a Round trip$")
 	public void user_select_a_Round_trip() throws InterruptedException, FileNotFoundException, IOException {
-		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 2);
+		testCaseData = excelUtils.getMapTestData(System.getProperty("user.dir") + "//src//test/resources//testData//", "ClearTripTestData.xlsx", "Flight_Search", 1);
 	    homePage.selectRoundTrip();
 		System.out.println("^user select a Round trip$");
 		Thread.sleep(1000);
@@ -114,8 +119,8 @@ public class SerachFlight{
 
 	@When("^user selects Depart on and Return on date$")
 	public void user_selects_Depart_on_and_Return_on_date() throws InterruptedException {
-		homePage.enterDepartOnDate("Fri, 15 Feb, 2019");
-		homePage.enterReturntOnDate("Sat, 16 Feb, 2019");
+		homePage.enterDepartOnDate(testCaseData.get("Depart On"));
+		homePage.enterReturntOnDate(testCaseData.get("Return On"));
 	    System.out.println("^user selects Depart on and Return on date$");
 	    Thread.sleep(1000);
 	}
